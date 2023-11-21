@@ -1,12 +1,15 @@
 # This skript implements the interaction of an agent with the Schema-Engine
 
+import os
 import random
 import requests
+from transformers import AutoModelForCausalLM, AutoTokenizer
+import torch
 
 from Schema_Engine import LocationPattern
 
 token = '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'
-model_id = "meta-llama/Llama-2-70b-chat-hf"
+model_id = "meta-llama/Llama-2-70b-chat-hf" 
 
 def generate_prompt(previous_feedback, is_first_prompt=False):
     task_explanation = ''' You are trying to find rewards in an environment with 4 locations A, B, C, D. 
@@ -23,23 +26,40 @@ def interpret_response(llm_response):
     print(llm_response)
     return llm_response.strip()
 
-def query_huggingface(payload, model_id, api_token):
-    headers = {"Authorization": f"Bearer {api_token}"}
-    API_URL = f"https://api-inference.huggingface.co/models/{model_id}"
-    response = requests.post(API_URL, headers=headers, json=payload)
-    return response.json()
+def setup_model(model_name, local_dir="model_data"):
+    local_model_path = os.path.join(local_dir, model_name)
+    local_tokenizer_path = os.path.join(local_dir, "tokenizer", model_name)
 
-def run_episode_with_llm(num_actions, model_id=model_id, api_token=token):
+    if not os.path.exists(local_model_path):
+        os.makedirs(local_model_path, exist_ok=True)
+        model = AutoModelForCausalLM.from_pretrained(model_name)
+        model.save_pretrained(local_model_path)
+    else:
+        model = AutoModelForCausalLM.from_pretrained(local_model_path)
+
+    if not os.path.exists(local_tokenizer_path):
+        os.makedirs(local_tokenizer_path, exist_ok=True)
+        tokenizer = AutoTokenizer.from_pretrained(model_name)
+        tokenizer.save_pretrained(local_tokenizer_path)
+    else:
+        tokenizer = AutoTokenizer.from_pretrained(local_tokenizer_path)
+
+    return tokenizer, model
+
+def generate_with_model(prompt, tokenizer, model):
+    inputs = tokenizer.encode(prompt, return_tensors="pt")
+    outputs = model.generate(inputs, max_length=50)  # Adjust max_length as needed
+    return tokenizer.decode(outputs[0], skip_special_tokens=True)
+
+def run_episode_with_llm(num_actions, model_name):
+    tokenizer, model = setup_model(model_name)
     pattern = LocationPattern()
     previous_feedback = None
     results = []
 
     for i in range(num_actions):
         prompt = generate_prompt(previous_feedback, is_first_prompt=(i == 0))
-        payload = {"inputs": prompt}
-
-        # Get response from Hugging Face API
-        response = query_huggingface(payload, model_id, api_token)
+        response = generate_with_model(prompt, tokenizer, model)
         action = interpret_response(response)
 
         previous_feedback = pattern.provide_feedback(action)
@@ -47,8 +67,8 @@ def run_episode_with_llm(num_actions, model_id=model_id, api_token=token):
 
     return results
 
-
 # Example usage
-episode = run_episode_with_llm(10)
+model_name = model_id  # Replace with the LLaMA model name you're using
+episode = run_episode_with_llm(10, model_name)
 for action, feedback in episode:
     print(f"Action: {action}, Feedback: {feedback}")
