@@ -1,0 +1,38 @@
+Fetching all parameters from the checkpoint at ./llama-2-70b-chat/.
+Traceback (most recent call last):
+  File "/home/dfruhbus/.conda/envs/Lama2/lib/python3.11/site-packages/torch/serialization.py", line 441, in save
+    _save(obj, opened_zipfile, pickle_module, pickle_protocol)
+  File "/home/dfruhbus/.conda/envs/Lama2/lib/python3.11/site-packages/torch/serialization.py", line 668, in _save
+    zip_file.write_record(name, storage.data_ptr(), num_bytes)
+RuntimeError: [enforce fail at inline_container.cc:471] . PytorchStreamWriter failed writing file data/8: file write failed
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/gpfs/home4/dfruhbus/Lama/transformers/src/transformers/models/llama/convert_llama_weights_to_hf.py", line 305, in <module>
+    main()
+  File "/gpfs/home4/dfruhbus/Lama/transformers/src/transformers/models/llama/convert_llama_weights_to_hf.py", line 294, in main
+    write_model(
+  File "/gpfs/home4/dfruhbus/Lama/transformers/src/transformers/models/llama/convert_llama_weights_to_hf.py", line 214, in write_model
+    torch.save(state_dict, os.path.join(tmp_model_path, filename))
+  File "/home/dfruhbus/.conda/envs/Lama2/lib/python3.11/site-packages/torch/serialization.py", line 440, in save
+    with _open_zipfile_writer(f) as opened_zipfile:
+  File "/home/dfruhbus/.conda/envs/Lama2/lib/python3.11/site-packages/torch/serialization.py", line 291, in __exit__
+    self.file_like.write_end_of_file()
+RuntimeError: [enforce fail at inline_container.cc:337] . unexpected pos 1241549184 vs 1241549072
+srun: error: gcn21: task 0: Exited with exit code 1
+srun: Terminating StepId=3210007.0
+
+JOB STATISTICS
+==============
+Job ID: 3210007
+Cluster: snellius
+User/Group: dfruhbus/dfruhbus
+State: FAILED (exit code 1)
+Nodes: 1
+Cores per node: 72
+CPU Utilized: 00:06:24
+CPU Efficiency: 4.98% of 02:08:24 core-walltime
+Job Wall-clock time: 00:01:47
+Memory Utilized: 130.39 GB
+Memory Efficiency: 27.17% of 480.00 GB

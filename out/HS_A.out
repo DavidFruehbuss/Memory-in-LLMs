@@ -1,0 +1,46 @@
+***************************************************************************************************** 
+* WARNING: The 2021 software stack is not available on the 'genoa' partition.
+Please use the 2022 * 
+* software stack. * 
+* * 
+* If you have any question, please contact us via
+http://servicedesk.surfsara.nl. * 
+***************************************************************************************************** 
+/gpfs/home4/dfruhbus/Lama/transformers/src/transformers/tokenization_utils_base.py:1719: FutureWarning: The `use_auth_token` argument is deprecated and will be removed in v5 of Transformers.
+  warnings.warn(
+The tokenizer class you load from this checkpoint is not the same type as the class this function is called from. It may result in unexpected tokenization. 
+The tokenizer class you load from this checkpoint is 'LLaMATokenizer'. 
+The class this function is called from is 'LlamaTokenizer'.
+You are using the default legacy behaviour of the <class 'transformers.models.llama.tokenization_llama.LlamaTokenizer'>. This means that tokens that come after special tokens will not be properly handled. We recommend you to read the related pull request available at https://github.com/huggingface/transformers/pull/24565, and set the legacy attribute accordingly.
+/gpfs/home4/dfruhbus/Lama/transformers/src/transformers/modeling_utils.py:2228: FutureWarning: The `use_auth_token` argument is deprecated and will be removed in v5 of Transformers.
+  warnings.warn(
+Downloading shards:   0%|          | 0/81 [00:00<?, ?it/s]
+Downloading (…)l-00016-of-00081.bin:   0%|          | 0.00/1.62G [00:00<?, ?B/s][A
+Downloading (…)l-00016-of-00081.bin:   1%|          | 10.5M/1.62G [00:00<00:17, 94.0MB/s][ADownloading shards:  19%|█▊        | 15/81 [00:00<00:01, 39.63it/s]
+Traceback (most recent call last):
+  File "/gpfs/home4/dfruhbus/Lama/HandcraftedStudy1.py", line 73, in <module>
+    hf_model = LlamaForCausalLM.from_pretrained(MODEL_PATH, device=device, low_cpu_mem_usage=True, use_auth_token=token)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/gpfs/home4/dfruhbus/Lama/transformers/src/transformers/modeling_utils.py", line 2645, in from_pretrained
+    resolved_archive_file, sharded_metadata = get_checkpoint_shard_files(
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/gpfs/home4/dfruhbus/Lama/transformers/src/transformers/utils/hub.py", line 1025, in get_checkpoint_shard_files
+    cached_filename = cached_file(
+                      ^^^^^^^^^^^^
+  File "/gpfs/home4/dfruhbus/Lama/transformers/src/transformers/utils/hub.py", line 427, in cached_file
+    resolved_file = hf_hub_download(
+                    ^^^^^^^^^^^^^^^^
+  File "/home/dfruhbus/.conda/envs/Lama2/lib/python3.11/site-packages/huggingface_hub/utils/_validators.py", line 118, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/dfruhbus/.conda/envs/Lama2/lib/python3.11/site-packages/huggingface_hub/file_download.py", line 1364, in hf_hub_download
+    http_get(
+  File "/home/dfruhbus/.conda/envs/Lama2/lib/python3.11/site-packages/huggingface_hub/file_download.py", line 544, in http_get
+    temp_file.write(chunk)
+  File "/home/dfruhbus/.conda/envs/Lama2/lib/python3.11/tempfile.py", line 483, in func_wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 122] Disk quota exceeded
+Downloading (…)l-00016-of-00081.bin:   1%|          | 10.5M/1.62G [00:00<00:45, 35.2MB/s]
+srun: error: gcn63: task 0: Exited with exit code 1
+srun: Terminating StepId=3545517.0

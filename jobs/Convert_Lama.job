@@ -1,0 +1,18 @@
+#!/bin/bash
+
+#SBATCH --job-name=Convert_Lama
+#SBATCH --output=CLama.out
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=72
+#SBATCH --gpus=4
+#SBATCH --partition=gpu
+#SBATCH --time=06:00:00
+
+module purge
+module load 2021
+module load Anaconda3/2021.05
+
+cd $HOME/Lama/
+source activate Lama2
+srun python transformers/src/transformers/models/llama/convert_llama_weights_to_hf.py --input_dir ./llama-2-70b-chat/ --model_size 70B --output_dir ./lama-2-70B-chat-HUG/
