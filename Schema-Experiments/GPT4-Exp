@@ -1,0 +1,54 @@
+# This skript implements the interaction of an agent with the Schema-Engine with GPT4
+
+import openai
+
+from Schema_Engine import LocationPattern
+
+def generate_prompt(previous_feedback, is_first_prompt=False):
+    task_explanation = ''' You are trying to find rewards in an environment with 4 locations A, B, C, D. 
+    Each round you can choose a location and get feedback whether you received a reward at that location or not. 
+    Try to find as many rewards as possible. '''
+    if is_first_prompt:
+        return f"{task_explanation} This is your first move. Where do you go?"
+    else:
+        return f"{task_explanation} Your previous move received: {previous_feedback}. Where do you go next?"
+
+def interpret_response(llm_response):
+    # This function should be tailored to the expected format of the LLM response.
+    # Assuming the LLM response is simply the chosen location like 'A', 'B', 'C', or 'D'.
+    print(llm_response)
+    return llm_response.strip()
+
+def query_gpt(prompt, api_key, model="text-davinci-003"):
+    openai.api_key = api_key
+
+    response = openai.Completion.create(
+        engine=model,
+        prompt=prompt,
+        max_tokens=50
+    )
+    return response.choices[0].text.strip()
+
+# Use your API key here
+api_key = "your-api-key"
+
+def run_episode_with_llm(num_actions):
+    pattern = LocationPattern()
+    previous_feedback = None
+    results = []
+
+    for i in range(num_actions):
+        prompt = generate_prompt(previous_feedback, is_first_prompt=(i == 0))
+        response = query_gpt(prompt)
+        action = interpret_response(response)
+        action = action.cpu()
+
+        previous_feedback = pattern.provide_feedback(action)
+        results.append((action, previous_feedback))
+
+    return results
+
+# Example usage
+episode = run_episode_with_llm(10)
+for action, feedback in episode:
+    print(f"Action: {action}, Feedback: {feedback}")
