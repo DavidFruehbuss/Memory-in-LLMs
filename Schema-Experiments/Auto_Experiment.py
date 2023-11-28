@@ -58,7 +58,7 @@ def generate_with_model(prompt, tokenizer, model):
     return tokenizer.decode(outputs[0], skip_special_tokens=True)
 
 def run_episode_with_llm(num_actions, model_name, device=device):
-    tokenizer, model = setup_model(model_name, device)
+    tokenizer, model = setup_model(model_name)
     pattern = LocationPattern()
     previous_feedback = None
     results = []
