@@ -27,7 +27,7 @@ def interpret_response(llm_response):
     print(llm_response)
     return llm_response.strip()
 
-def setup_model(model_name, local_dir="model_data", device=device):
+def setup_model(model_name, local_dir="/scratch-local/dfruhbus/model_data", device=device):
     
     local_model_path = os.path.join(local_dir, model_name)
     local_tokenizer_path = os.path.join(local_dir, "tokenizer", model_name)
