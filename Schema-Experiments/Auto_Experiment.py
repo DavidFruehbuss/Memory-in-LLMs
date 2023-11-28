@@ -13,6 +13,7 @@ model_id = "meta-llama/Llama-2-70b-chat-hf"
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
 def generate_prompt(previous_feedback, is_first_prompt=False):
+    ''' Currently I am assuming that the history of the conversation is automatically added '''
     task_explanation = ''' You are trying to find rewards in an environment with 4 locations A, B, C, D. 
     Each round you can choose a location and get feedback whether you received a reward at that location or not. 
     Try to find as many rewards as possible. '''
