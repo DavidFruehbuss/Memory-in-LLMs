@@ -25,7 +25,7 @@ def generate_prompt(previous_feedback, is_first_prompt=False):
 def interpret_response(llm_response):
     # This function should be tailored to the expected format of the LLM response.
     # Assuming the LLM response is simply the chosen location like 'A', 'B', 'C', or 'D'.
-    print(llm_response)
+    # print(llm_response)
     return llm_response.strip()
 
 def setup_model(model_name, local_dir="/scratch-local/dfruhbus/model_data", device=device):
@@ -54,7 +54,7 @@ def setup_model(model_name, local_dir="/scratch-local/dfruhbus/model_data", devi
 def generate_with_model(prompt, tokenizer, model):
     inputs = tokenizer.encode(prompt, return_tensors="pt")
     inputs.to(device)
-    outputs = model.generate(inputs, max_length=50)  # Adjust max_length as needed
+    outputs = model.generate(**inputs, max_length=100)  # Adjust max_length as needed
     return tokenizer.decode(outputs[0], skip_special_tokens=True)
 
 def run_episode_with_llm(num_actions, model_name, device=device):
@@ -66,8 +66,10 @@ def run_episode_with_llm(num_actions, model_name, device=device):
     for i in range(num_actions):
         prompt = generate_prompt(previous_feedback, is_first_prompt=(i == 0))
         response = generate_with_model(prompt, tokenizer, model)
+        print(response)
         action = interpret_response(response)
-        action = action.cpu()
+        # action = action.cpu()
+        # print(action)
 
         previous_feedback = pattern.provide_feedback(action)
         results.append((action, previous_feedback))
