@@ -5,6 +5,7 @@ import random
 import requests
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from accelerate import Accelerator
+from accelerate import init_empty_weights, load_checkpoint_and_dispatch
 import torch
 import os
 
@@ -18,6 +19,7 @@ os.environ["CUDA_VISIBLE_DEVICES"] = "0,1,2,3"
 os.environ['PYTORCH_CUDA_ALLOC_CONF'] = 'max_split_size_mb:128'
 accelerator = Accelerator()
 print("Available devices:", accelerator.device)
+print("Number of GPUs available:", torch.cuda.device_count())
 
 def generate_prompt(previous_feedback, is_first_prompt=False):
     ''' Currently I am assuming that the history of the conversation is automatically added '''
@@ -44,27 +46,32 @@ def setup_model(model_name, local_dir="/scratch-local/dfruhbus/model_data"):
     local_model_path = os.path.join(local_dir, model_name)
     local_tokenizer_path = os.path.join(local_dir, "tokenizer", model_name)
 
-    if not os.path.exists(local_model_path):
-        os.makedirs(local_model_path, exist_ok=True)
-        model = AutoModelForCausalLM.from_pretrained(model_name, use_auth_token=token)
+    # if not os.path.exists(local_model_path):
+    #     os.makedirs(local_model_path, exist_ok=True)
+    #     model = AutoModelForCausalLM.from_pretrained(model_name, use_auth_token=token)
 
-        model.save_pretrained(local_model_path)
-    else:
-        model = AutoModelForCausalLM.from_pretrained(local_model_path, use_auth_token=token)
+    #     model.save_pretrained(local_model_path)
+    # else:
+    #     model = AutoModelForCausalLM.from_pretrained(local_model_path, use_auth_token=token)
 
 
-    if not os.path.exists(local_tokenizer_path):
-        os.makedirs(local_tokenizer_path, exist_ok=True)
-        tokenizer = AutoTokenizer.from_pretrained(model_name, use_auth_token=token)
-        tokenizer.save_pretrained(local_tokenizer_path)
-    else:
-        tokenizer = AutoTokenizer.from_pretrained(local_tokenizer_path, use_auth_token=token)
+    # if not os.path.exists(local_tokenizer_path):
+    #     os.makedirs(local_tokenizer_path, exist_ok=True)
+    #     tokenizer = AutoTokenizer.from_pretrained(model_name, use_auth_token=token)
+    #     tokenizer.save_pretrained(local_tokenizer_path)
+    # else:
+    #     tokenizer = AutoTokenizer.from_pretrained(local_tokenizer_path, use_auth_token=token)
+
+    model = AutoModelForCausalLM.from_pretrained(model_name, use_auth_token=token, device_map="auto")
+    tokenizer = AutoTokenizer.from_pretrained(model_name, use_auth_token=token)
+
+    model = accelerator.prepare(model)
 
     return tokenizer, model
 
 def generate_with_model(prompt, tokenizer, model):
     inputs = tokenizer.encode(prompt, return_tensors="pt")
-    model, inputs = accelerator.prepare(model, inputs)
+    inputs = accelerator.prepare(inputs)
     outputs = model.generate(inputs, max_length=500)  # Adjust max_length as needed
     return tokenizer.decode(outputs[0], skip_special_tokens=True)
 
