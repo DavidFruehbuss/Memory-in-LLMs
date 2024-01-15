@@ -71,27 +71,22 @@ def setup_model(model_name, local_dir="/scratch-local/dfruhbus/model_data"):
 
 def generate_with_model(prompt, tokenizer, model):
     inputs = tokenizer.encode(prompt, return_tensors="pt")
-    inputs.to(device)
-    outputs = model.generate(**inputs, max_length=100)  # Adjust max_length as needed
+    inputs = accelerator.prepare(inputs)
+    outputs = model.generate(inputs, max_length=500)  # Adjust max_length as needed
     return tokenizer.decode(outputs[0], skip_special_tokens=True)
 
-def run_episode_with_llm(num_actions, model_name, device=device):
+def run_episode_with_llm(num_actions, model_name):
     tokenizer, model = setup_model(model_name)
     pattern = LocationPattern()
     previous_feedback = None
     results = []
 
     for i in range(num_actions):
-        prompt, user_input = generate_prompt_compressed(results, is_first_prompt=(i == 0))
-        print(f'Prompt: {prompt}')
+        prompt = generate_prompt(previous_feedback, is_first_prompt=(i == 0))
         response = generate_with_model(prompt, tokenizer, model)
-        # cut out the promt from the answer:
-        response = response.split("[/INST]")[-1]
-        print(f'Response: {response}')
-        # add promt-answer pair to the conversation history
+        print(response)
         action = interpret_response(response)
-        # action = action.cpu()
-        # print(action)
+        print(f'Action: {action}')
 
         previous_feedback = pattern.provide_feedback(action)
         results.append((action, previous_feedback))
@@ -100,16 +95,6 @@ def run_episode_with_llm(num_actions, model_name, device=device):
 
 # Example usage
 model_name = model_id  # Replace with the LLaMA model name you're using
-episode = run_episode_with_llm(10, model_name, device)
+episode = run_episode_with_llm(3, model_name)
 for action, feedback in episode:
     print(f"Action: {action}, Feedback: {feedback}")
-    reward_total += feedback
-print(f'Reward total is: {reward_total}')
-
-# Example usage
-episode = run_episode_with_llm_compressed(10)
-reward_total = 0
-for action, feedback in episode:
-    print(f"Action: {action}, Feedback: {feedback}")
-    reward_total += feedback
-print(f'Reward total is: {reward_total}')
