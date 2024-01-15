@@ -35,7 +35,7 @@ def generate_episode(pattern, num_actions):
     return results
 
 # Example Usage
-# pattern = LocationPattern()
-# episode = generate_episode(pattern, 10)
-# for action, feedback in episode:
-#     print(f"Action: {action}, Feedback: {feedback}")
+pattern = LocationPattern()
+episode = generate_episode(pattern, 10)
+for action, feedback in episode:
+    print(f"Action: {action}, Feedback: {feedback}")
