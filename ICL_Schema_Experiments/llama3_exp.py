@@ -228,7 +228,7 @@ if __name__ == '__main__':
     if compute_new == True:
 
         # Testing
-        results = experiment(1, dataset=dataset[:10]) # currently set to 10/240 
+        results = experiment(1, dataset=dataset[:4]) # currently set to 4/48 
 
         with open(file_path_save, 'wb') as f:
             pickle.dump(results, f)
