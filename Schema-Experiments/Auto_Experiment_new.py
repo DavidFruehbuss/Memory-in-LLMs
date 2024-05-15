@@ -4,6 +4,8 @@ import os
 import random
 import requests
 from transformers import AutoModelForCausalLM, AutoTokenizer
+from accelerate import Accelerator
+from accelerate import init_empty_weights, load_checkpoint_and_dispatch
 import torch
 import os
 
@@ -19,7 +21,7 @@ accelerator = Accelerator()
 print("Available devices:", accelerator.device)
 print("Number of GPUs available:", torch.cuda.device_count())
 
-def setup_model(model_name, local_dir="/scratch-local/dfruhbus/model_data", device=device):
+def setup_model(model_name, local_dir="/scratch-local/dfruhbus/model_data"):
     
     local_model_path = os.path.join(local_dir, model_name)
     local_tokenizer_path = os.path.join(local_dir, "tokenizer", model_name)
@@ -96,7 +98,8 @@ def interpret_response(llm_response):
     return match.group(0) if match else None
 
 def generate_with_model(prompt, tokenizer, model):
-    inputs = tokenizer.encode(prompt, return_tensors="pt").to("cuda:0")
+    inputs = tokenizer.encode(prompt, return_tensors="pt")
+    inputs = accelerator.prepare(inputs)
     outputs = model.generate(inputs, max_length=2000)  # Adjust max_length as needed
     return tokenizer.decode(outputs[0], skip_special_tokens=True)
 
@@ -181,7 +184,7 @@ def run_episode_with_llm_compressed(num_actions):
 
     return results
 
-# Example usage
+# Example usage (1)
 episode = run_episode_with_llm(10)
 reward_total = 0
 for action, feedback in episode:
@@ -189,7 +192,7 @@ for action, feedback in episode:
     reward_total += feedback
 print(f'Reward total is: {reward_total}')
 
-# Example usage
+# Example usage (2)
 episode = run_episode_with_llm_compressed(10)
 reward_total = 0
 for action, feedback in episode:
