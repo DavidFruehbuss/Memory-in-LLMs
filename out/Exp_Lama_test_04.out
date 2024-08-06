@@ -1,0 +1,253 @@
+***************************************************************************************************** 
+* WARNING: The 2021 software stack is not available on the 'genoa' partition.
+Please use the 2022 * 
+* software stack. * 
+* * 
+* If you have any question, please contact us via
+http://servicedesk.surfsara.nl. * 
+***************************************************************************************************** 
+============================================================================================== 
+Warning! Mixing Conda and module environments may lead to corruption of the
+user environment. 
+We do not recommend users mixing those two environments unless absolutely
+necessary. Note that 
+SURF does not provide any support for Conda environment.
+For more information, please refer to our software policy page:
+https://servicedesk.surf.nl/wiki/display/WIKI/Software+policy+Snellius#SoftwarepolicySnelliusandLisa-UseofAnacondaandMinicondaenvironmentsonSnellius 
+
+Remember that many packages have already been installed on the system and can
+be loaded using 
+the 'module load <package__name>' command. If you are uncertain if a package is
+already available 
+on the system, please use 'module avail' or 'module spider' to search for it.
+============================================================================================== 
+Available devices: cuda
+Number of GPUs available: 4
+/gpfs/home4/dfruhbus/Lama/transformers/src/transformers/models/auto/auto_factory.py:460: FutureWarning: The `use_auth_token` argument is deprecated and will be removed in v5 of Transformers.
+  warnings.warn(
+Loading checkpoint shards:   0%|          | 0/15 [00:00<?, ?it/s]Loading checkpoint shards:   7%|▋         | 1/15 [00:06<01:28,  6.34s/it]Loading checkpoint shards:  13%|█▎        | 2/15 [00:13<01:25,  6.55s/it]Loading checkpoint shards:  20%|██        | 3/15 [00:19<01:18,  6.56s/it]Loading checkpoint shards:  27%|██▋       | 4/15 [00:26<01:11,  6.54s/it]Loading checkpoint shards:  33%|███▎      | 5/15 [00:32<01:05,  6.55s/it]Loading checkpoint shards:  40%|████      | 6/15 [00:39<00:58,  6.48s/it]Loading checkpoint shards:  47%|████▋     | 7/15 [00:45<00:51,  6.41s/it]Loading checkpoint shards:  53%|█████▎    | 8/15 [00:51<00:45,  6.48s/it]Loading checkpoint shards:  60%|██████    | 9/15 [00:56<00:34,  5.74s/it]Loading checkpoint shards:  67%|██████▋   | 10/15 [01:00<00:26,  5.22s/it]Loading checkpoint shards:  73%|███████▎  | 11/15 [01:03<00:19,  4.81s/it]Loading checkpoint shards:  80%|████████  | 12/15 [01:07<00:13,  4.49s/it]Loading checkpoint shards:  87%|████████▋ | 13/15 [01:11<00:08,  4.36s/it]Loading checkpoint shards:  93%|█████████▎| 14/15 [01:15<00:04,  4.16s/it]Loading checkpoint shards: 100%|██████████| 15/15 [01:15<00:00,  2.97s/it]Loading checkpoint shards: 100%|██████████| 15/15 [01:15<00:00,  5.05s/it]
+/gpfs/home4/dfruhbus/Lama/transformers/src/transformers/utils/hub.py:372: FutureWarning: The `use_auth_token` argument is deprecated and will be removed in v5 of Transformers.
+  warnings.warn(
+/gpfs/home4/dfruhbus/Lama/transformers/src/transformers/models/auto/tokenization_auto.py:628: FutureWarning: The `use_auth_token` argument is deprecated and will be removed in v5 of Transformers.
+  warnings.warn(
+0
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+A decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+/gpfs/home4/dfruhbus/Lama/transformers/src/transformers/generation/utils.py:1494: UserWarning: You are calling .generate() with the `input_ids` being on a device type different than your model's device. `input_ids` is on cpu, whereas the model is on cuda. You may experience unexpected behaviors or slower generation. Please make sure that you have put `input_ids` to the correct device by calling for example input_ids = input_ids.to('cuda') before running `.generate()`.
+  warnings.warn(
+Response:  # You have visited the following locations:
+# A, C, D, E, G, H
+
+I would like to visit location H.
+EGDCAHHDAECGFF A F 1180
+1
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+A decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+Response:  #H
+GEBDAHHGACDBFF H F 1180
+2
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+A decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+Response:  # The environment has the following rewards:
+# A: 0
+# B: 0
+# C: 0
+# D: 1
+# E: 0
+# F: 0
+# G: 0
+# H: 0
+
+I would like to visit location D.
+GCBHFDDHGEBADD A D 1180
+3
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+A decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+Response:  #G
+DHCAEGGHCFEDBB G B 1180
+4
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+A decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+Response:  #F
+HACGEFFHCAGEBB F B 1180
+5
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+A decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+Response:  # B
+EFDAHBBEDFHGCC B C 1180
+6
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+A decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+Response:  #F
+BAHCDFFCGDBHEE F E 1180
+7
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+A decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+Response:  # C
+HBAGECCHEDGBFF C F 1180
+8
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+A decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+Response:  # C
+HFBDACCHFADBEE C E 1180
+9
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+A decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+Response:  # The environment has the following rewards:
+# A: 0
+# B: 0
+# C: 0
+# D: 0
+# E: 1
+# F: 0
+# G: 0
+# H: 0
+
+I would like to visit location E.
+HCDABEEGACHDFF A F 1180
+10
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+A decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+Response:  #G
+EIOAHGGMKJAEFF G F 1180
+11
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+A decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+Response:  # The environment has the following rewards:
+# I: 0
+# K: 0
+# G: 0
+# P: 0
+# C: 0
+# O: 1
+# J: 0
+# E: 0
+# D: 0
+# N: 0
+# H: 0
+# B: 0
+
+I would like to visit location O.
+IKGPCOOJEDNHBB I B 1180
+12
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+A decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+Response:  # I would like to visit location I.
+POLHAIILGKJHEE I E 1180
+13
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+A decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+Response:  # The environment has the following rewards:
+# I: 0
+# B: 0
+# K: 0
+# G: 0
+# L: 0
+# N: 1
+# M: 0
+# A: 0
+# J: 0
+# C: 0
+
+# You have visited all the locations, so you have experience with all of them.
+
+# Based on your experience, the best location to visit next would be N, because it has the highest reward of 1.
+
+# Therefore, the answer is: N
+IBKGLNNMIALJCC I C 1180
+14
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+A decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+Response:  # The environment has the following rewards:
+# A: 0
+# B: 0
+# C: 1
+# D: 0
+# G: 0
+# H: 0
+# I: 0
+# J: 1
+# L: 0
+# M: 0
+
+I would like to visit location J.
+ADILCJJAHMCBGG A G 1180
+15
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+A decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+Response:  #L
+CIOMELLJPOKEHH L H 1180
+16
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+A decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+Response:  # The answer should be a single letter, the location you want to visit next.
+
+J
+KIAMGJJBCKHIDD J D 1180
+17
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+A decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+Response:  #L
+KEOFBLLJGKNIMM L M 1180
+18
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+A decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+Response:  # The environment has the following rewards:
+# B: 0
+# D: 1
+# E: 0
+# F: 0
+# H: 0
+# J: 0
+# K: 0
+# L: 0
+# M: 0
+# P: 0
+
+I would like to visit location D.
+BFELJDDPHECKMM B M 1180
+19
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+A decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+Response:  # The environment has the following rewards:
+# Location A: 0 reward
+# Location B: 0 reward
+# Location C: 0 reward
+# Location D: 0 reward
+# Location E: 0 reward
+# Location F: 0 reward
+# Location G: 1 reward
+# Location H: 0 reward
+# Location I: 0 reward
+# Location K: 0 reward
+# Location L: 0 reward
+# Location M: 0 reward
+# Location N: 0 reward
+
+G
+DKNMIGGLACFBHH A H 1180
+20
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+A decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+Response:  #W
+ITSFAWWFVPSUXX W X 1180
+21
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+A decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+slurmstepd: error: *** JOB 5387178 ON gcn32 CANCELLED AT 2024-02-28T23:57:27 DUE TO TIME LIMIT ***
+slurmstepd: error: *** STEP 5387178.0 ON gcn32 CANCELLED AT 2024-02-28T23:57:27 DUE TO TIME LIMIT ***
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+
+JOB STATISTICS
+==============
+Job ID: 5387178
+Cluster: snellius
+User/Group: dfruhbus/dfruhbus
+State: TIMEOUT (exit code 0)
+Nodes: 1
+Cores per node: 72
+CPU Utilized: 04:17:10
+CPU Efficiency: 1.49% of 12-00:12:00 core-walltime
+Job Wall-clock time: 04:00:10
+Memory Utilized: 116.98 GB
+Memory Efficiency: 24.37% of 480.00 GB

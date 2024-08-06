@@ -1,0 +1,85 @@
+***************************************************************************************************** 
+* WARNING: The 2021 software stack is not available on the 'genoa' partition.
+Please use the 2022 * 
+* software stack. * 
+* * 
+* If you have any question, please contact us via
+http://servicedesk.surfsara.nl. * 
+***************************************************************************************************** 
+============================================================================================== 
+Warning! Mixing Conda and module environments may lead to corruption of the
+user environment. 
+We do not recommend users mixing those two environments unless absolutely
+necessary. Note that 
+SURF does not provide any support for Conda environment.
+For more information, please refer to our software policy page:
+https://servicedesk.surf.nl/wiki/display/WIKI/Software+policy+Snellius+and+Lisa#SoftwarepolicySnelliusandLisa-UseofAnacondaandMinicondaenvironmentsonSnellius 
+
+Remember that many packages have already been installed on the system and can
+be loaded using 
+the 'module load <package__name>' command. If you are uncertain if a package is
+already available 
+on the system, please use 'module avail' or 'module spider' to search for it.
+============================================================================================== 
+Action: D, Feedback: 0
+Action: B, Feedback: 0
+Action: D, Feedback: 0
+Action: A, Feedback: 1
+Action: D, Feedback: 0
+Action: B, Feedback: 1
+Action: D, Feedback: 0
+Action: A, Feedback: 0
+Action: C, Feedback: 1
+Action: A, Feedback: 0
+Available devices: cuda
+Number of GPUs available: 4
+/gpfs/home4/dfruhbus/Lama/transformers/src/transformers/models/auto/auto_factory.py:460: FutureWarning: The `use_auth_token` argument is deprecated and will be removed in v5 of Transformers.
+  warnings.warn(
+Loading checkpoint shards:   0%|          | 0/15 [00:00<?, ?it/s]Loading checkpoint shards:   7%|▋         | 1/15 [00:08<01:54,  8.15s/it]Loading checkpoint shards:  13%|█▎        | 2/15 [00:15<01:38,  7.55s/it]Loading checkpoint shards:  20%|██        | 3/15 [00:22<01:30,  7.52s/it]Loading checkpoint shards:  27%|██▋       | 4/15 [00:30<01:21,  7.42s/it]Loading checkpoint shards:  33%|███▎      | 5/15 [00:36<01:12,  7.25s/it]Loading checkpoint shards:  40%|████      | 6/15 [00:44<01:05,  7.33s/it]Loading checkpoint shards:  47%|████▋     | 7/15 [00:51<00:58,  7.33s/it]Loading checkpoint shards:  53%|█████▎    | 8/15 [00:59<00:51,  7.35s/it]Loading checkpoint shards:  60%|██████    | 9/15 [01:04<00:39,  6.57s/it]Loading checkpoint shards:  67%|██████▋   | 10/15 [01:08<00:29,  5.96s/it]Loading checkpoint shards:  73%|███████▎  | 11/15 [01:12<00:21,  5.46s/it]Loading checkpoint shards:  80%|████████  | 12/15 [01:17<00:15,  5.17s/it]Loading checkpoint shards:  87%|████████▋ | 13/15 [01:22<00:09,  4.99s/it]Loading checkpoint shards:  93%|█████████▎| 14/15 [01:26<00:04,  4.80s/it]Loading checkpoint shards: 100%|██████████| 15/15 [01:26<00:00,  3.43s/it]Loading checkpoint shards: 100%|██████████| 15/15 [01:26<00:00,  5.78s/it]
+/gpfs/home4/dfruhbus/Lama/transformers/src/transformers/utils/hub.py:372: FutureWarning: The `use_auth_token` argument is deprecated and will be removed in v5 of Transformers.
+  warnings.warn(
+/gpfs/home4/dfruhbus/Lama/transformers/src/transformers/models/auto/tokenization_auto.py:628: FutureWarning: The `use_auth_token` argument is deprecated and will be removed in v5 of Transformers.
+  warnings.warn(
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+/gpfs/home4/dfruhbus/Lama/transformers/src/transformers/generation/utils.py:1494: UserWarning: You are calling .generate() with the `input_ids` being on a device type different than your model's device. `input_ids` is on cpu, whereas the model is on cuda. You may experience unexpected behaviors or slower generation. Please make sure that you have put `input_ids` to the correct device by calling for example input_ids = input_ids.to('cuda') before running `.generate()`.
+  warnings.warn(
+ You are trying to find rewards in an environment with 4 locations A, B, C, D. 
+    Each round you can choose a location and get feedback whether you received a reward at that location or not. 
+    Try to find as many rewards as possible. Always answer with only the letter of the location that you would like to visit! Don't give an explanation!  This is your first move. Where do you go?
+
+I would go to location A.
+Action: A
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+ You are trying to find rewards in an environment with 4 locations A, B, C, D. 
+    Each round you can choose a location and get feedback whether you received a reward at that location or not. 
+    Try to find as many rewards as possible. Always answer with only the letter of the location that you would like to visit! Don't give an explanation!  Your previous move received: 1. Where do you go next?
+
+I would go to location B.
+Action: A
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+ You are trying to find rewards in an environment with 4 locations A, B, C, D. 
+    Each round you can choose a location and get feedback whether you received a reward at that location or not. 
+    Try to find as many rewards as possible. Always answer with only the letter of the location that you would like to visit! Don't give an explanation!  Your previous move received: 0. Where do you go next?
+
+I would like to visit location A.
+Action: A
+Action: A, Feedback: 1
+Action: A, Feedback: 0
+Action: A, Feedback: 0
+
+JOB STATISTICS
+==============
+Job ID: 4673032
+Cluster: snellius
+User/Group: dfruhbus/dfruhbus
+State: COMPLETED (exit code 0)
+Nodes: 1
+Cores per node: 72
+CPU Utilized: 00:28:03
+CPU Efficiency: 3.81% of 12:16:48 core-walltime
+Job Wall-clock time: 00:10:14
+Memory Utilized: 114.67 GB
+Memory Efficiency: 23.89% of 480.00 GB
