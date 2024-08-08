@@ -2,13 +2,13 @@ import transformers
 import torch
 import accelerate
 import bitsandbytes
-# from accelerate import Accelerator
+from accelerate import Accelerator
 
 import random
 import pickle
 
 random.seed(42)
-# accelerator = Accelerator()
+accelerator = Accelerator()
 
 RED = '\033[31m'
 GREEN = '\033[32m'
@@ -20,7 +20,10 @@ def load_llama3(quantized=False):
 
     # 16 GB GPU memory without quantization (works super slow on T4)
     # 4 bit quantization is fast
-    model_id = "meta-llama/Meta-Llama-3-8B-Instruct"
+    # Versions: 3.1-8B ; 3.1-70B; 3-8B, 3-70B
+
+
+    model_id = "meta-llama/Meta-Llama-3.1-70B-Instruct"
 
     if quantized:
       pipeline = transformers.pipeline(
@@ -30,6 +33,7 @@ def load_llama3(quantized=False):
               "torch_dtype": torch.float16,
               "quantization_config": {"load_in_4bit": True},
               "low_cpu_mem_usage": True,
+              "cache_dir": "/scratch-local/dfruhbus",
           },
           device_map="auto",
       )
@@ -37,11 +41,11 @@ def load_llama3(quantized=False):
       pipeline = transformers.pipeline(
           "text-generation",
           model=model_id,
-          model_kwargs={"torch_dtype": torch.bfloat16},
+          model_kwargs={"torch_dtype": torch.bfloat16, "cache_dir": "/scratch-local/dfruhbus"},
           device_map="auto",
       )
 
-    # model = accelerator.prepare(model) # pipeline
+    pipeline = accelerator.prepare(pipeline) # pipeline
 
     return pipeline
 
@@ -52,7 +56,7 @@ def query_llama3(prompt, system_prompt, pipeline):
         {"role": "user", "content": f"{prompt}"},
     ]
 
-    # inputs = accelerator.prepare(inputs) # messages
+    messages = accelerator.prepare(messages) # messages
 
     prompt = pipeline.tokenizer.apply_chat_template(
             messages, 
@@ -82,7 +86,7 @@ def generate_prompt(sample, num_examples):
     sequences_pos, sequences_neg = element
 
     system_prompt = 'You are a helpful AI assistant.'
-    prompt = 'You are supposed to identify whether a list of letters entails an unknown pattern based on examples.\n'
+    prompt = 'You are supposed to identify whether a list of letters entails an unknown pattern based on examples. Only answer with the label 0 or 1.\n'
 
     prompt_example_list = []
 
@@ -135,7 +139,7 @@ def single_query(sample, num_examples, show_example_text=False):
     else:
       return 0, (corrent_label)
     
-def experiment(repetitions=10, dataset):
+def experiment(repetitions, dataset):
 
     results = {}
 
@@ -152,7 +156,7 @@ def experiment(repetitions=10, dataset):
             for j in range(repetitions):
 
                 if i == 0 and j == 0:
-                    show_example_text=True
+                    show_example_text=False
                 else:
                     show_example_text=False
 
@@ -214,7 +218,7 @@ if __name__ == '__main__':
     Need modules installed in the env and need to be logged in to huggingface
     """
 
-    file_path_dataset = './icl_llama3_dataset/dataset_2.pkl'
+    file_path_dataset = './ICL_Schema_Experiments/dataset_2.pkl'
 
     with open(file_path_dataset, 'rb') as f:
         dataset = pickle.load(f)
@@ -223,7 +227,7 @@ if __name__ == '__main__':
 
     compute_new = True
 
-    file_path_save = './icl_llama3_results/results_Llama3_test.pkl'
+    file_path_save = './ICL_Schema_Experiments/results_Llama3_test.pkl'
 
     if compute_new == True:
 
