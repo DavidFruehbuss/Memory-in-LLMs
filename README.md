@@ -1,7 +1,7 @@
 
 # STUDYING EPISODIC MEMORY IN LARGE LANGUAGE MODELS
 
-![Project Image](./Memory-in-LLM.png)
+![Project Image](Memory-in-LLMs.png)
 
 ## Abstract
 
