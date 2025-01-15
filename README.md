@@ -1,7 +1,7 @@
 
 # STUDYING EPISODIC MEMORY IN LARGE LANGUAGE MODELS
 
-![Project Image](./Diffusion%20Chain.png)
+![Project Image](./Memory-in-LLM.png)
 
 ## Abstract
 
